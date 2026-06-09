@@ -25,21 +25,6 @@ A [SwiftBar](https://github.com/swiftbar/SwiftBar)/[xbar](https://github.com/mat
 
 ## Preview
 
-```
-▼ $296.38
-
-Symbol     Price        Change (Percent)     Qty   Cost     Total Value
-AAPL       $296.38      ▼(-5.15, -1.71%)     100  $250.31     $29638.50  >
-MSFT       $410.88      ▼(-0.86, -0.21%)      50  $300.50     $20544.00  >
-GOOGL      $369.69      ▲(6.38, 1.75%)        25  $280.75      $9242.12  >
-..............................................................$59424.62  >
-
-+ Add stock
-✎ Edit data file
-↺ Refresh
-🌐 Yahoo Finance
-```
-
 <img src="stock_portfolio_preview.png" />
 
 ---
