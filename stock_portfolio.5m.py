@@ -5,7 +5,6 @@
 # <xbar.version>v1.0</xbar.version>
 # <xbar.author>Carlos E. Torres</xbar.author>
 # <xbar.author.github>cetorres</xbar.author.github>
-# <xbar.author.email>cetorres@cetorres.com</xbar.author.email>
 # <xbar.desc>Show your stock portfolio and prices in your menu bar using Yahoo Finance real-time data.</xbar.desc>
 # <xbar.dependencies>python3,yfinance</xbar.dependencies>
 # <xbar.image>https://github.com/cetorres/swiftbar-stock-portfolio/blob/main/stock_portfolio_preview.png</xbar.image>
