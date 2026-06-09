@@ -6,8 +6,6 @@ A [SwiftBar](https://github.com/swiftbar/SwiftBar)/[xbar](https://github.com/mat
 ![Python](https://img.shields.io/badge/Python-3.x-blue?style=flat&logo=python)
 ![SwiftBar](https://img.shields.io/badge/SwiftBar-Plugin-orange?style=flat)
 
----
-
 ## Features
 
 - **Menu bar ticker** — shows the price and a live up/down arrow for your primary stock at a glance
@@ -21,13 +19,9 @@ A [SwiftBar](https://github.com/swiftbar/SwiftBar)/[xbar](https://github.com/mat
 - **Auto-refresh** — data refreshes every 5 minutes automatically
 - **Manual refresh** — a Refresh menu item lets you force an immediate update
 
----
-
 ## Preview
 
-<img src="stock_portfolio_preview.png" />
-
----
+![Stock portfolio preview](stock_portfolio_preview.png)
 
 ## Requirements
 
@@ -37,8 +31,6 @@ A [SwiftBar](https://github.com/swiftbar/SwiftBar)/[xbar](https://github.com/mat
 | SwiftBar/xbar | [Latest release](https://github.com/swiftbar/SwiftBar/releases)/[Latest release](https://github.com/matryer/xbar/releases) |
 | Python | 3.x |
 | yfinance | Latest |
-
----
 
 ## Installation
 
@@ -68,8 +60,6 @@ chmod +x ~/path/to/swiftbar-plugins/stock_portfolio.5m.py
 ```
 
 SwiftBar will detect the new plugin automatically. If it doesn't appear right away, use **SwiftBar → Refresh All** from the menu bar.
-
----
 
 ## Configuration
 
@@ -121,8 +111,6 @@ The filename encodes the refresh interval. Rename the file to change how often t
 
 See the [SwiftBar documentation](https://github.com/swiftbar/SwiftBar#plugin-naming) for the full naming convention.
 
----
-
 ## How It Works
 
 1. On each refresh cycle SwiftBar executes the Python script.
@@ -133,30 +121,28 @@ See the [SwiftBar documentation](https://github.com/swiftbar/SwiftBar#plugin-nam
 6. Each stock row carries a `href` to its Yahoo Finance page and opens in SwiftBar's built-in webview. Expanding a row reveals **View on Yahoo Finance**, **Edit**, and **Delete** actions.
 7. Add, edit, and delete operations use `osascript` to present native macOS dialogs, then write the updated data back to `~/.stock_portfolio.txt` and trigger a plugin refresh.
 
----
-
 ## Troubleshooting
 
-**Plugin does not appear in the menu bar**
+### Plugin does not appear in the menu bar
+
 - Confirm the file is executable: `chmod +x stock_portfolio.5m.py`
 - Check that the shebang line (`#!/usr/bin/env python3`) resolves to a valid Python 3 installation: `which python3`
 
-**`ModuleNotFoundError: No module named 'yfinance'`**
+### `ModuleNotFoundError: No module named 'yfinance'`
+
 - The shebang must use the same Python that has `yfinance` installed. Find the correct path with `which python3` and update the first line of the script accordingly, or install into that interpreter: `pip3 install yfinance`
 
-**Prices show `N/A`**
+### Prices show `N/A`
+
 - Yahoo Finance occasionally returns incomplete data. The plugin will display updated values on the next refresh cycle. Check that the ticker symbols are valid on [finance.yahoo.com](https://finance.yahoo.com).
 
-**Colors not showing**
-- Ensure the `ansi=true` parameter is present on each printed row (it is included by default). SwiftBar 1.4+ supports ANSI colors natively.
+### Colors not showing
 
----
+- Ensure the `ansi=true` parameter is present on each printed row (it is included by default). SwiftBar 1.4+ supports ANSI colors natively.
 
 ## License
 
 MIT License. See [LICENSE](LICENSE) for details.
-
----
 
 ## Author
 
