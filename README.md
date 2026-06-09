@@ -14,7 +14,10 @@ A [SwiftBar](https://github.com/swiftbar/SwiftBar)/[xbar](https://github.com/mat
 - **Portfolio dropdown** — a formatted table with symbol, current price, change (value + percent), quantity held, cost basis, and current total value for every position
 - **Color-coded changes** — green (▲) for gains, red (▼) for losses using ANSI colors
 - **Portfolio total** — running total of your entire portfolio's current market value
-- **Yahoo Finance links** — click any row to open that stock's Yahoo Finance page in a webview
+- **Yahoo Finance links** — click any row to open that stock's Yahoo Finance page in a built-in webview
+- **Add / Edit / Delete from the menu** — manage your portfolio directly from the dropdown using native macOS dialogs; no code editing required
+- **Edit data file** — open `~/.stock_portfolio.txt` directly for bulk edits
+- **Empty portfolio guidance** — shows a warning and instructions when no stocks have been added yet
 - **Auto-refresh** — data refreshes every 5 minutes automatically
 - **Manual refresh** — a Refresh menu item lets you force an immediate update
 
@@ -25,12 +28,14 @@ A [SwiftBar](https://github.com/swiftbar/SwiftBar)/[xbar](https://github.com/mat
 ```
 ▼ $296.38
 
-Symbol     Price        Change (Percent)          Qty  Cost      Total Value
-AAPL       $296.38      ▼(-5.15, -1.71%)          100  $250.31     $29638.50
-MSFT       $410.88      ▼(-0.86, -0.21%)           50  $300.50     $20544.00
-GOOGL      $369.69      ▲(+6.38, 1.75%)            25  $280.75      $9242.12
-...................................................................$59424.62
+Symbol     Price        Change (Percent)     Qty   Cost     Total Value
+AAPL       $296.38      ▼(-5.15, -1.71%)     100  $250.31     $29638.50  >
+MSFT       $410.88      ▼(-0.86, -0.21%)      50  $300.50     $20544.00  >
+GOOGL      $369.69      ▲(6.38, 1.75%)        25  $280.75      $9242.12  >
+..............................................................$59424.62  >
 
++ Add stock
+✎ Edit data file
 ↺ Refresh
 🌐 Yahoo Finance
 ```
@@ -83,29 +88,40 @@ SwiftBar will detect the new plugin automatically. If it doesn't appear right aw
 
 ## Configuration
 
-Open `stock_portfolio.5m.py` and edit the `symbols_quantities` dictionary near the top of the file:
+### Managing your portfolio
 
-```python
-symbols_quantities = {
-    'AAPL': [100, 250.31],
-    'MSFT': [50, 300.50],
-    'GOOGL': [25, 280.75]
-}
+Portfolio data is stored in `~/.stock_portfolio.txt`. You manage it directly from the SwiftBar dropdown — no code editing required.
+
+| Action | How |
+|---|---|
+| **Add a stock** | Click **Add stock** in the dropdown. Three macOS dialogs will prompt you for the symbol, quantity, and cost per share. |
+| **Edit a stock** | Expand any stock row and click **Edit \<SYMBOL\>**. The same dialog flow pre-fills current values. |
+| **Delete a stock** | Expand any stock row and click **Delete \<SYMBOL\>**, or use the **Delete stock** submenu to pick from all positions. |
+| **Bulk edit** | Click **Edit data file** to open `~/.stock_portfolio.txt` in your default text editor. |
+
+### Data file format
+
+`~/.stock_portfolio.txt` is a plain CSV file — one position per line:
+
+```text
+SYMBOL,quantity,cost_per_share
 ```
 
-Each entry follows this format:
+Example:
 
-```python
-'TICKER': [shares_owned, cost_per_share]
+```text
+AAPL,100,250.31
+MSFT,50,300.50
+GOOGL,25,280.75
 ```
 
 | Field | Description |
 |---|---|
-| `TICKER` | Stock symbol as listed on Yahoo Finance (e.g. `AAPL`, `TSLA`, `BTC-USD`) |
-| `shares_owned` | Number of shares (or units) you hold |
-| `cost_per_share` | Your average cost basis per share in USD |
+| `SYMBOL` | Stock symbol as listed on Yahoo Finance (e.g. `AAPL`, `TSLA`, `BTC-USD`) |
+| `quantity` | Number of shares (or units) you hold (integer) |
+| `cost_per_share` | Your average cost basis per share in USD (decimal) |
 
-> **Note:** The **first** symbol in the dictionary is the one displayed in the menu bar. Reorder the entries to change which ticker is shown at a glance.
+> **Note:** The **first** symbol in the file is the one displayed in the menu bar. Reorder the lines to change which ticker is shown at a glance.
 
 ### Changing the refresh interval
 
@@ -125,10 +141,12 @@ See the [SwiftBar documentation](https://github.com/swiftbar/SwiftBar#plugin-nam
 ## How It Works
 
 1. On each refresh cycle SwiftBar executes the Python script.
-2. The script calls `yfinance.Tickers()` once with all symbols to minimize API requests.
-3. The first line printed becomes the menu bar title (price + directional arrow SF Symbol).
-4. Lines after `---` populate the dropdown, formatted as a fixed-width table with ANSI color support.
-5. Each stock row carries a `href` to its Yahoo Finance page and opens in SwiftBar's built-in webview.
+2. The script reads `~/.stock_portfolio.txt` to load the portfolio. If the file does not exist, an empty-portfolio screen is shown with an **Add stock** prompt.
+3. `yfinance.Tickers()` is called once with all symbols to minimize API requests.
+4. The first line printed (price + directional arrow SF Symbol for the first stock) becomes the menu bar title.
+5. Lines after `---` populate the dropdown, formatted as a fixed-width table with ANSI color support.
+6. Each stock row carries a `href` to its Yahoo Finance page and opens in SwiftBar's built-in webview. Expanding a row reveals **View on Yahoo Finance**, **Edit**, and **Delete** actions.
+7. Add, edit, and delete operations use `osascript` to present native macOS dialogs, then write the updated data back to `~/.stock_portfolio.txt` and trigger a plugin refresh.
 
 ---
 
@@ -136,7 +154,7 @@ See the [SwiftBar documentation](https://github.com/swiftbar/SwiftBar#plugin-nam
 
 **Plugin does not appear in the menu bar**
 - Confirm the file is executable: `chmod +x stock_portfolio.5m.py`
-- Check that the shebang line (`#!/usr/bin/python3`) points to a valid Python 3 installation: `which python3`
+- Check that the shebang line (`#!/usr/bin/env python3`) resolves to a valid Python 3 installation: `which python3`
 
 **`ModuleNotFoundError: No module named 'yfinance'`**
 - The shebang must use the same Python that has `yfinance` installed. Find the correct path with `which python3` and update the first line of the script accordingly, or install into that interpreter: `pip3 install yfinance`
