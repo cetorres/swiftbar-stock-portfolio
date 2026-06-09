@@ -1,14 +1,15 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# <bitbar.title>Stock Portfolio</bitbar.title>
-# <bitbar.version>v1.0</bitbar.version>
-# <bitbar.author>Carlos E. Torres</bitbar.author>
-# <bitbar.author.github>cetorres</bitbar.author.github>
-# <bitbar.author.email>cetorres@cetorres.com</bitbar.author.email>
-# <bitbar.desc>Show your stock portfolio and prices in your menu bar using Yahoo Finance real-time data.</bitbar.desc>
-# <bitbar.dependencies>python3,yfinance</bitbar.dependencies>
-# <bitbar.image>https://github.com/cetorres/swiftbar-stock-portfolio/raw/master/images/stock_portfolio_preview.png</bitbar.image>
+# <xbar.title>Stock Portfolio</xbar.title>
+# <xbar.version>v1.0</xbar.version>
+# <xbar.author>Carlos E. Torres</xbar.author>
+# <xbar.author.github>cetorres</xbar.author.github>
+# <xbar.author.email>cetorres@cetorres.com</xbar.author.email>
+# <xbar.desc>Show your stock portfolio and prices in your menu bar using Yahoo Finance real-time data.</xbar.desc>
+# <xbar.dependencies>python3,yfinance</xbar.dependencies>
+# <xbar.image>https://github.com/cetorres/swiftbar-stock-portfolio/blob/main/stock_portfolio_preview.png</xbar.image>
+# <xbar.abouturl>https://github.com/cetorres/swiftbar-stock-portfolio</xbar.abouturl>
 
 import yfinance as yf
 
