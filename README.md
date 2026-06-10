@@ -1,6 +1,6 @@
 # Stock Portfolio
 
-A [SwiftBar](https://github.com/swiftbar/SwiftBar)/[xbar](https://github.com/matryer/xbar) plugin written in Python that displays your stock portfolio directly in the macOS menu bar using real-time data from Yahoo Finance.
+A [SwiftBar](https://github.com/swiftbar/SwiftBar) plugin written in Python that displays your stock portfolio directly in the macOS menu bar using real-time data from Yahoo Finance.
 
 ![macOS](https://img.shields.io/badge/macOS-000000?style=flat&logo=apple&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.x-blue?style=flat&logo=python)
@@ -28,21 +28,19 @@ A [SwiftBar](https://github.com/swiftbar/SwiftBar)/[xbar](https://github.com/mat
 | Requirement | Version |
 |---|---|
 | macOS | 12 Monterey or later |
-| SwiftBar/xbar | [Latest release](https://github.com/swiftbar/SwiftBar/releases)/[Latest release](https://github.com/matryer/xbar/releases) |
+| SwiftBar | [Latest release](https://github.com/swiftbar/SwiftBar/releases) |
 | Python | 3.x |
 | yfinance | Latest |
 
 ## Installation
 
-### 1. Install SwiftBar/xbar
+### 1. Install SwiftBar
 
 Download and install SwiftBar from the [official releases page](https://github.com/swiftbar/SwiftBar/releases) or via Homebrew:
 
 ```bash
 brew install swiftbar
 ```
-
-Or install xbar from its official [website](https://xbarapp.com/).
 
 ### 2. Install the Python dependency
 

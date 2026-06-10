@@ -122,7 +122,7 @@ def render():
     render_add_stock()
     render_edit_file()
     print("Refresh | sfimage=arrow.clockwise refresh=true")
-    print(f"Yahoo Finance | sfimage=globe href=https://finance.yahoo.com webview=true")
+    print(f"Yahoo Finance | sfimage=globe href=https://finance.yahoo.com")
     print("---")
 
 
